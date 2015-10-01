@@ -1,0 +1,96 @@
+body {
+    font-family: 'Roboto'!important;
+    font-size: 14px!important;
+    font-weight: 400;
+}
+#topbar {
+    background-color: #f6f6f6;
+    height: auto;
+}
+#topbar img {
+    width: 35%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#navigation {
+    background: #f2f2f2;
+    height: auto;
+}
+#navigation ul {
+    text-align: center;
+}
+#navigation ul li {
+    display: inline-block;
+    padding: 0 2px;
+}
+#myNav ul {
+    text-align: center!important;
+}
+#myNavbar ul li {
+    display: block;
+}
+.navbar-toggle i {
+    color: #d3d3d3;
+}
+#main {
+    text-align: center;
+    background: #f9f9f9;
+    height: auto;
+    min-height: 100vh;
+}
+#champion {
+    display: block;
+    margin: 0 auto;
+}
+#champion img {
+    width: 25%;
+    height: auto;
+}
+#add-player {
+    margin-top: 15px!important;
+}
+#add-player input {
+    margin: 10px 0;
+}
+#add-player button {
+    margin: 10px 0;
+}
+.formError {
+    color: red;
+}
+#playerOne,
+#playerTwo {
+    width: 45%;
+    margin-top: 15px;
+}
+#sendResult,
+#sendPlayer {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+h2 {
+margin: 20px!important;
+}
+
+#firstPlayerResult,
+#secondPlayerResult,
+#halfFirstPlayer,
+#halfSecondPlayer {
+    width: 45%; 
+    margin: 15px auto;
+    display: block;
+    text-align: center;
+}
+#add-match h2 {
+    margin-top: 15px!important;
+}
+select:hover,
+select:focus {
+    background: #fff!important;
+}
+table th {
+    text-align: center!important;
+}
