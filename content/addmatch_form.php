@@ -71,7 +71,12 @@ $dbFSH = $conn->real_escape_string($fResult);
 $sResult = $secondPlayerRes - $secondPlayerHalf;
 $dbSSH = $conn->real_escape_string($sResult);
 
-if($playerOne != $playerTwo){
+
+    if($dbFiRes != '' && $dbFiHa != '' && $dbSeRes != '' && $dbSeHa != ''){
+      if ($conn->query("INSERT INTO games(`firstPlayer`, `secondPlayer`, `firstResult`, `secondResult`, `firstResultH`, `secondResultH`, `winner`, `firstSecHa`, `secondSecHa`) VALUES ('$dbPlOne','$dbPlTwo','$dbFiRes','$dbSeRes','$dbFiHa','$dbSeHa','$dbWinner', '$dbFSH', '$dbSSH')")) {
+     
+          
+    if($playerOne != $playerTwo){
     if($playerOne == $res[0] || $playerTwo == $res[0]){
         if($res[0]==$dbLooser){
             mysqli_query($conn, "UPDATE players SET player_champ=0 WHERE player_short='" . $dbLooser . "' ;");
@@ -83,9 +88,11 @@ if($playerOne != $playerTwo){
             mysqli_query($conn, "UPDATE players SET loses=loses+1 WHERE player_short='" .$dbLooser . "' ;");
             mysqli_query($conn, "UPDATE players SET games=games+1 WHERE player_short='" . $dbWinner . "' ;");
             mysqli_query($conn, "UPDATE players SET games=games+1 WHERE player_short='" . $dbLooser . "' ;");
+            mysqli_query($conn, "UPDATE players SET points=points+2 WHERE player_short='" . $dbWinner . "' ;");
             //winstreak & losestreak
             $wsQuery = "SELECT winner FROM games WHERE firstPlayer='" . $dbWinner . "' OR secondPlayer='" .$dbWinner . "' ORDER BY winner DESC LIMIT 1;";
             $lsQuery = "SELECT winner FROM games WHERE firstPlayer='" . $dbLooser . "' OR secondPlayer='" . $dbLooser . "' ORDER BY winner DESC LIMIT 1;";
+        
         if(mysqli_fetch_array($wsQuery) == true){
             mysqli_query($conn, "UPDATE players SET winstreak=winstreak+1 WHERE player_short='" . $dbWinner . "';");
         } else {
@@ -96,21 +103,6 @@ if($playerOne != $playerTwo){
         } else {
             mysqli_query($conn, "UPDATE players SET losestreak=losestreak+1 WHERE player_short='" . $dbLooser . "';");
         }
-    /*
-        $WS = "SELECT winstreak FROM players WHERE player_short='" . $dbLooser . "';";
-        $lWS = "SELECT longestWinstreak FROM players WHERE player_short='" . $dbLooser . "';";
-        if($WS > $lWS){
-            mysqli_query($conn, "UPDATE players SET longestWinstreak=" . $WS . "WHERE player_short='" . $dbLooser . "';");
-        }
-    
-        $ls = "SELECT losestreak FROM players WHERE player_short='" . $dbWinner . "';";
-        $lls = "SELECT longestLosestreak FROM players WHERE player_short='" . $dbWinner . "';";
-        if($ls > $lls){
-            mysqli_query($conn, "UPDATE players SET longestLosestreak=" . $ls . "WHERE player_short='" . $dbWinner . "';");
-        }
-    */
-        mysqli_query($conn, "UPDATE players SET losestreak=0 WHERE player_short='" . $dbWinner . "';");
-        mysqli_query($conn, "UPDATE players SET winstreak=0 WHERE player_short='" . $dbLooser . "';");
             if($dbWinner == $playerOne){
                 mysqli_query($conn, "UPDATE players SET goalsPlus=goalsPlus+" . $dbFiRes . ", goalsMinus=goalsMinus+" . $dbSeRes . " WHERE player_short='" . $dbWinner . "' ;");
                 mysqli_query($conn, "UPDATE players SET goalsPlus=goalsPlus+" . $dbSeRes . ", goalsMinus=goalsMinus+" . $dbFiRes . " WHERE player_short='" . $dbLooser . "' ;");
@@ -118,8 +110,10 @@ if($playerOne != $playerTwo){
                 mysqli_query($conn, "UPDATE players SET goalsPlus=goalsPlus+" . $dbSeRes . ", goalsMinus=goalsMinus+" . $dbFiRes . " WHERE player_short='" . $dbWinner . "' ;");
                 mysqli_query($conn, "UPDATE players SET goalsPlus=goalsPlus+" . $dbFiRes . ", goalsMinus=goalsMinus+" . $dbSeRes . " WHERE player_short='" . $dbLooser . "' ;");
             }
-    if($dbFiRes != '' && $dbFiHa != '' && $dbSeRes != '' && $dbSeHa != ''){
-      if ($conn->query("INSERT INTO games(`firstPlayer`, `secondPlayer`, `firstResult`, `secondResult`, `firstResultH`, `secondResultH`, `winner`, `firstSecHa`, `secondSecHa`) VALUES ('$dbPlOne','$dbPlTwo','$dbFiRes','$dbSeRes','$dbFiHa','$dbSeHa','$dbWinner', '$dbFSH', '$dbSSH')")) {
+          
+    
+        mysqli_query($conn, "UPDATE players SET losestreak=0 WHERE player_short='" . $dbWinner . "';");
+        mysqli_query($conn, "UPDATE players SET winstreak=0 WHERE player_short='" . $dbLooser . "';");
       echo '<script>alert("Zapisano wynik."); window.location.href="addmatch.php"</script>';
       }  
     } else {

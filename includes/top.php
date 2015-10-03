@@ -10,8 +10,8 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="index.php">Strona Główna</a></li>
-        <li><a href="#">Wyniki</a></li>
-        <li><a href="#">Statystyki</a></li>
+        <li><a href="results.php">Wyniki</a></li>
+        <li><a href="stats.php">Statystyki</a></li>
         <li><a href="#">Zawodnicy</a></li>
         <li><a href="addmatch.php">Dodaj wynik</a></li>
         <li><a href="addplayer.php">Dodaj zawodnika</a></li>

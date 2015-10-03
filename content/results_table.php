@@ -1,9 +1,8 @@
 <?php
-    $gridQuery = "SELECT * FROM `games` ORDER BY `ID` DESC";
-    $gridRes = mysqli_query($conn, $gridQuery);
+    $gridQuery = mysqli_query($conn, "SELECT ID, firstPlayer, secondPlayer, firstResult, secondResult, firstResultH, secondResultH, firstSecHa, secondSecHa, winner  FROM `games` ORDER BY `ID` DESC");
+    //$gridRes = mysqli_query($conn, $gridQuery);
 ?>
  
-
  <div id="main" class="container-fluid">
   <h1>Wyniki spotkań</h1>
   <div class="table-responsive">         
@@ -20,7 +19,18 @@
       </tr>
     </thead>
     <tbody>
-    
+    <?php while($row = mysqli_fetch_array($gridQuery)){
+        echo "<tr>";
+        echo "<td>" . $row['ID'] . "</td>";
+        echo "<td>" . $row['firstPlayer'] . "</td>";
+        echo "<td>" . $row['secondPlayer'] . "</td>";
+        echo "<td>" . $row['firstResult'] . "-" . $row['secondResult'] . "</td>";
+        echo "<td>" . $row['firstResultH'] . "-" . $row['secondResultH'] . "</td>";
+        echo "<td>" . $row['firstSecHa'] . "-" . $row['secondSecHa'] . "</td>";
+        echo "<td>" . $row['winner'] . "</td>";
+        echo "</tr>";  
+    }
+    ?>
     </tbody>
   </table>
   </div>
