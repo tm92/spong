@@ -40,7 +40,13 @@
               <input type="number" min="0" name="secondPlayerResult" id="secondPlayerResult" class="form-control" placeholder="Liczba bramek">  
               <input type="number" min="0" name="halfSecondPlayer" id="halfSecondPlayer" class="form-control" placeholder="Bramek do przerwy">  
         </div>
+        <div class="col-md-4 col-md-offset-4">
+        <input type="password" min="0" name="passhidden" id="passhidden" class="form-control" placeholder="Hasło" style="visibility: hidden;">
+        <input type="password" name="passMatch" id="passMatch" class="form-control" placeholder="Hasło">
+        </div>
+        <div class="col-md-12">
         <button class="btn btn-success" id="sendResult">Dodaj wynik</button>
+        </div>
         </form>
     </div>
 </div>
@@ -53,6 +59,9 @@ $playerTwo = isset($_POST['playerTwo'])?$_POST['playerTwo']:'';
 $secondPlayerRes = isset($_POST['secondPlayerResult'])?$_POST['secondPlayerResult']:'';
 $secondPlayerHalf = isset($_POST['halfSecondPlayer'])?$_POST['halfSecondPlayer']:'';
 
+$password = isset($_POST['passMatch'])?$_POST['passMatch']:'';
+
+$dbPass = $conn->real_escape_string($password);
 $dbPlOne = $conn->real_escape_string($playerOne);
 $dbFiRes = $conn->real_escape_string($firstPlayerRes);
 $dbFiHa = $conn->real_escape_string($firstPlayerHalf);
@@ -71,6 +80,7 @@ $dbFSH = $conn->real_escape_string($fResult);
 $sResult = $secondPlayerRes - $secondPlayerHalf;
 $dbSSH = $conn->real_escape_string($sResult);
 
+if($password=="piwnica"){
 
     if($dbFiRes != '' && $dbFiHa != '' && $dbSeRes != '' && $dbSeHa != ''){
       if ($conn->query("INSERT INTO games(`firstPlayer`, `secondPlayer`, `firstResult`, `secondResult`, `firstResultH`, `secondResultH`, `winner`, `firstSecHa`, `secondSecHa`) VALUES ('$dbPlOne','$dbPlTwo','$dbFiRes','$dbSeRes','$dbFiHa','$dbSeHa','$dbWinner', '$dbFSH', '$dbSSH')")) {
@@ -82,6 +92,8 @@ $dbSSH = $conn->real_escape_string($sResult);
             mysqli_query($conn, "UPDATE players SET player_champ=0 WHERE player_short='" . $dbLooser . "' ;");
             mysqli_query($conn, "UPDATE players SET player_champ=1 WHERE player_short='" . $dbWinner ."' ;");
             mysqli_query($conn, "UPDATE players SET timesChamp=timesChamp+1 WHERE player_short='" .$dbWinner . "' ;");
+        } else {
+            mysqli_query($conn, "UPDATE players SET defTitle=defTitle+1 WHERE player_short='" . $dbWinner . "';");
         }
     }
             mysqli_query($conn, "UPDATE players SET wins=wins+1 WHERE player_short='" .$dbWinner . "' ;");
@@ -106,9 +118,18 @@ $dbSSH = $conn->real_escape_string($sResult);
             if($dbWinner == $playerOne){
                 mysqli_query($conn, "UPDATE players SET goalsPlus=goalsPlus+" . $dbFiRes . ", goalsMinus=goalsMinus+" . $dbSeRes . " WHERE player_short='" . $dbWinner . "' ;");
                 mysqli_query($conn, "UPDATE players SET goalsPlus=goalsPlus+" . $dbSeRes . ", goalsMinus=goalsMinus+" . $dbFiRes . " WHERE player_short='" . $dbLooser . "' ;");
+                mysqli_query($conn, "UPDATE players SET fhGP=fhGP+" . $dbFiHa . ", fhGM=fhGM+" . $dbSeHa . " WHERE player_short='" . $dbWinner . "' ;");
+                mysqli_query($conn, "UPDATE players SET fhGP=fhGP+" . $dbSeHa . ", fhGM=fhGM+" . $dbFiHa . " WHERE player_short='" . $dbLooser . "' ;");
+                mysqli_query($conn, "UPDATE players SET shGP=shGP+" . $dbFSH . ", shGM=shGM+" . $dbSSH . " WHERE player_short='" . $dbWinner . "' ;");
+                mysqli_query($conn, "UPDATE players SET shGP=shGP+" . $dbSSH . ", shGM=shGM+" . $dbFSH . " WHERE player_short='" . $dbLooser . "' ;");
+                
             } else {
                 mysqli_query($conn, "UPDATE players SET goalsPlus=goalsPlus+" . $dbSeRes . ", goalsMinus=goalsMinus+" . $dbFiRes . " WHERE player_short='" . $dbWinner . "' ;");
                 mysqli_query($conn, "UPDATE players SET goalsPlus=goalsPlus+" . $dbFiRes . ", goalsMinus=goalsMinus+" . $dbSeRes . " WHERE player_short='" . $dbLooser . "' ;");
+                mysqli_query($conn, "UPDATE players SET fhGP=fhGP+" . $dbSeHa . ", fhGM=fhGM+" . $dbFiHa . " WHERE player_short='" . $dbWinner . "' ;");
+                mysqli_query($conn, "UPDATE players SET fhGP=fhGP+" . $dbFiHa . ", fhGM=fhGM+" . $dbSeHa . " WHERE player_short='" . $dbLooser . "' ;");
+                mysqli_query($conn, "UPDATE players SET shGP=shGP+" . $dbSSH . ", shGM=shGM+" . $dbFSH . " WHERE player_short='" . $dbWinner . "' ;");
+                mysqli_query($conn, "UPDATE players SET shGP=shGP+" . $dbFSH . ", shGM=shGM+" . $dbSSH . " WHERE player_short='" . $dbLooser . "' ;");
             }
           
     
@@ -119,5 +140,6 @@ $dbSSH = $conn->real_escape_string($sResult);
     } else {
         echo '<script>alert("Coś poszło nie tak. Spróbuj jeszcze raz.");</script>';
     }
+}
 }
 ?>

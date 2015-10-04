@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <h1>Aktualny mistrz:</h1>
             <div id="champion" class="col-md-12">
-                <img src="images/champion.jpg">
+                <img src="images/cup.png">
                 
                 <h3><?php echo $imie[0] . " " . $imie[1]; ?></h3>
             </div>

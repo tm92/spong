@@ -14,12 +14,13 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
-#navigation {
+#myNav {
     background: #f2f2f2;
     height: auto;
 }
 #navigation ul {
-    text-align: center;
+   display: block;
+    margin: 0 auto;
 }
 #navigation ul li {
     display: inline-block;
@@ -45,8 +46,8 @@ body {
     margin: 0 auto;
 }
 #champion img {
-    width: 25%;
-    height: auto;
+    width: 15%;
+    height: 15%;
 }
 #add-player {
     margin-top: 15px!important;
@@ -91,6 +92,11 @@ select:hover,
 select:focus {
     background: #fff!important;
 }
-table th {
-    text-align: center!important;
+table {
+    text-align: left;
+}
+footer {
+    height: 100%;
+    text-align: center;
+    background: #d9d9d9;
 }

@@ -8,11 +8,11 @@
       </button>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav" id="navigation">
         <li class="active"><a href="index.php">Strona Główna</a></li>
         <li><a href="results.php">Wyniki</a></li>
         <li><a href="stats.php">Statystyki</a></li>
-        <li><a href="#">Zawodnicy</a></li>
+        <li><a href="players.php">Zawodnicy</a></li>
         <li><a href="addmatch.php">Dodaj wynik</a></li>
         <li><a href="addplayer.php">Dodaj zawodnika</a></li>
         <li><a href="addplayer.php">Zasady</a></li>
