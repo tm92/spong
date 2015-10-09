@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "admin";
-$dbname = "streetpong";
+$dbname = "streetpong_prod";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -12,4 +12,4 @@ $conn -> query ('SET CHARACTER_SET utf8_unicode_ci');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-?> 
+?>

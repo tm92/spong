@@ -1,4 +1,4 @@
- <?php
+<?php
     $query = "SELECT player_short FROM players";
     $result = mysqli_query($conn, $query);
     
@@ -94,6 +94,7 @@ if($password=="piwnica"){
             mysqli_query($conn, "UPDATE players SET timesChamp=timesChamp+1 WHERE player_short='" .$dbWinner . "' ;");
         } else {
             mysqli_query($conn, "UPDATE players SET defTitle=defTitle+1 WHERE player_short='" . $dbWinner . "';");
+	    mysqli_query($conn, "UPDATE players SET timesChamp=timesChamp+1 WHERE player_short='" .$dbWinner . "' ;");
         }
     }
             mysqli_query($conn, "UPDATE players SET wins=wins+1 WHERE player_short='" .$dbWinner . "' ;");

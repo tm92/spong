@@ -8,7 +8,7 @@
       </button>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav" id="navigation">
+      <ul class="nav navbar-nav">
         <li class="active"><a href="index.php">Strona Główna</a></li>
         <li><a href="results.php">Wyniki</a></li>
         <li><a href="stats.php">Statystyki</a></li>
