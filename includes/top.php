@@ -13,6 +13,7 @@
         <li><a href="results.php">Wyniki</a></li>
         <li><a href="stats.php">Statystyki</a></li>
         <li><a href="players.php">Zawodnicy</a></li>
+        <li><a href="h2h.php">H2H</a></li>
         <li><a href="addmatch.php">Dodaj wynik</a></li>
         <li><a href="addplayer.php">Dodaj zawodnika</a></li>
         <li><a href="addplayer.php">Zasady</a></li>

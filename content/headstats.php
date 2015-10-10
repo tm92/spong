@@ -8,23 +8,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     
     $dbGQ = "SELECT * FROM games WHERE firstPlayer='" . $dbPlOne . "' AND secondPlayer='" . $dbPlTwo . "' OR firstPlayer='" . $dbPlTwo . "' AND secondPlayer='" . $dbPlOne . "' ORDER BY `ID` DESC";
     $countGames = "SELECT COUNT(winner) FROM games WHERE firstPlayer='" . $dbPlOne . "' AND secondPlayer='" . $dbPlTwo . "' OR firstPlayer='" . $dbPlTwo . "' AND secondPlayer='" . $dbPlOne . "'";
+    
+    //ILOSC MECZOW
+    $cGames = mysqli_query($conn, $countGames);
+    $resGames = mysqli_fetch_array($cGames);
     $dbWinsF = "SELECT COUNT(winner) FROM games WHERE (firstPlayer='" . $dbPlOne . "' AND secondPlayer='" . $dbPlTwo . "' OR firstPlayer='" . $dbPlTwo . "' AND secondPlayer='" . $dbPlOne . "') AND winner='" . $playerOne . "'";
     $dbWinsS = "SELECT COUNT(winner) FROM games WHERE (firstPlayer='" . $dbPlOne . "' AND secondPlayer='" . $dbPlTwo . "' OR firstPlayer='" . $dbPlTwo . "' AND secondPlayer='" . $dbPlOne . "') AND winner='" . $playerTwo . "'";
     //ILOSC BRAMEK
-    $goalsF = mysqli_query($conn, "SELECT SUM(firstResult) FROM games WHERE firstPlayer='" . $dbPlOne . "' AND secondPlayer='" . $dbPlTwo . "' OR firstPlayer='" . $dbPlTwo . "' AND secondPlayer='" . $dbPlOne . "'");
-    $goalsF2 = mysqli_query($conn, "SELECT SUM(secondResult) FROM games WHERE secondPlayer='" . $dbPlOne . "' AND secondPlayer='" . $dbPlTwo . "' OR firstPlayer='" . $dbPlTwo . "' AND secondPlayer='" . $dbPlOne . "'");
+    $goalsF = mysqli_query($conn, "SELECT SUM(firstResult) FROM games WHERE firstPlayer='" . $dbPlOne . "' AND secondPlayer='" . $dbPlTwo . "'");
+    $goalsF2 = mysqli_query($conn, "SELECT SUM(secondResult) FROM games WHERE secondPlayer='" . $dbPlOne . "' AND firstPlayer='" . $dbPlTwo . "'");
     $goalsF3 = mysqli_fetch_array($goalsF);
     $goalsF4 = mysqli_fetch_array($goalsF2);
     $goalsF5 = $goalsF3[0] + $goalsF4[0];
     
-    $goalsS = mysqli_query($conn, "SELECT SUM(firstResult) FROM games WHERE firstPlayer='" . $dbPlTwo . "' AND secondPlayer='" . $dbPlOne . "' OR firstPlayer='" . $dbPlOne . "' AND secondPlayer='" . $dbPlTwo . "'");
-    $goalsS2 = mysqli_query($conn, "SELECT SUM(secondResult) FROM games WHERE secondPlayer='" . $dbPlTwo . "' AND secondPlayer='" . $dbPlOne . "' OR firstPlayer='" . $dbPlOne . "' AND secondPlayer='" . $dbPlTwo . "'");
+    $goalsS = mysqli_query($conn, "SELECT SUM(firstResult) FROM games WHERE firstPlayer='" . $dbPlTwo . "' AND secondPlayer='" . $dbPlOne . "'");
+    $goalsS2 = mysqli_query($conn, "SELECT SUM(secondResult) FROM games WHERE secondPlayer='" . $dbPlTwo . "' AND firstPlayer='" . $dbPlOne . "'");
     $goalsS3 = mysqli_fetch_array($goalsS);
     $goalsS4 = mysqli_fetch_array($goalsS2);
     $goalsS5 = $goalsS3[0] + $goalsS4[0];
-    //ILOSC MECZOW
-    $cGames = mysqli_query($conn, $countGames);
-    $resGames = mysqli_fetch_array($cGames);
+
     //ILOSC ZWYCIESTW
     $wnsF = mysqli_query($conn, $dbWinsF);
     $wnsS = mysqli_query($conn, $dbWinsS);
@@ -35,6 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     echo '<h2>Statystyki</h2>';
     echo '<div class="col-md-4 col-md-offset-4">';
     echo '<table class="table" style="text-align:center;">';
+    echo '<tr>
+            <td>' . $dbPlOne . '</td>';
+    echo '<td></td>
+        <td>' . $dbPlTwo . '</td>';
     echo '<tr>';
     echo '<td>' . $countWF[0] . '</td>';
     echo '<td>Zwycięstw</td>';
@@ -48,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     echo '<tr>';
     echo '<td>' . $goalsF5 . '</td>';
     echo '<td>Zdobyte bramki</td>';
-    echo '<td>' . $goalsS3[0] . '</td>';
+    echo '<td>' . $goalsS5 . '</td>';
     echo '</tr>';
     echo '</table>';
     echo '</div>';

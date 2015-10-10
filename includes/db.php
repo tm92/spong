@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "admin";
+$password = "";
 $dbname = "streetpong_prod";
 
 // Create connection
